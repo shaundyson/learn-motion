@@ -8,11 +8,11 @@ const meta: Meta = {
   tags: ["autodocs"],
   decorators: [
     (Story, { parameters }) => (
-      <div className="flex flex-col w-screen items-center justify-center ">
+      <div className="flex w-screen flex-col items-center justify-center">
         {parameters.description ? (
           <Description description={parameters.description} />
         ) : null}
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex flex-1 items-center justify-center">
           <Story />
         </div>
       </div>
@@ -36,12 +36,12 @@ export const Switch: Story = {
     return (
       <div
         onClick={toggleSwitch}
-        className={cn("w-20 h-10 flex border-2 rounded-full p-2", {
+        className={cn("flex h-10 w-20 rounded-full border-2 p-2", {
           "justify-end": isOn,
         })}
       >
         <motion.div
-          className="bg-green-500 rounded-full w-6"
+          className="w-6 rounded-full bg-green-500"
           layout
           transition={{
             type: "spring",
@@ -62,9 +62,9 @@ export const Tabs: Story = {
     const tabs: string[] = args.tabs || [];
     const [activeTab, setActiveTab] = useState(tabs[0]);
     return (
-      <div className="flex flex-col w-120 rounded h-40 border">
+      <div className="flex h-40 w-120 flex-col rounded border">
         <nav>
-          <ul className="w-full flex">
+          <ul className="flex w-full">
             {tabs.map((tab) => (
               <motion.li
                 key={tab}
@@ -76,8 +76,8 @@ export const Tabs: Story = {
                   "border-b-2 border-b-border",
                   "bg-secondary text-secondary-foreground",
                   {
-                    "bg-primary text-primary-foreground ": activeTab === tab,
-                  }
+                    "bg-primary text-primary-foreground": activeTab === tab,
+                  },
                 )}
                 onClick={() => setActiveTab(tab)}
               >
@@ -85,14 +85,14 @@ export const Tabs: Story = {
                 {activeTab === tab ? (
                   <motion.div
                     layoutId="underline"
-                    className="h-1 w-full bg-blue-400 absolute -bottom-1"
+                    className="absolute -bottom-1 h-1 w-full bg-blue-400"
                   />
                 ) : null}
               </motion.li>
             ))}
           </ul>
         </nav>
-        <main className="flex-1 flex items-center justify-center font-bold">
+        <main className="flex flex-1 items-center justify-center font-bold">
           {activeTab}
         </main>
       </div>

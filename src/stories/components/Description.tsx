@@ -3,7 +3,7 @@ import { CheckCircle2Icon } from "lucide-react";
 
 function Description({ description }: { description: string }) {
   return (
-    <Alert className="min-w-40 max-w-120">
+    <Alert className="max-w-120 min-w-40">
       <CheckCircle2Icon />
       {description}
     </Alert>
