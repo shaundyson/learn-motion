@@ -26,7 +26,11 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Switch: Story = {
-  render: () => {
+  args: {
+    visualDuraion: 0.2,
+    bounce: 0.2,
+  },
+  render: (args) => {
     const [isOn, setIsOn] = useState(false);
     const toggleSwitch = () => setIsOn(!isOn);
     return (
@@ -36,7 +40,15 @@ export const Switch: Story = {
           "justify-end": isOn,
         })}
       >
-        <motion.div className="bg-green-500 rounded-full w-6" layout />
+        <motion.div
+          className="bg-green-500 rounded-full w-6"
+          layout
+          transition={{
+            type: "spring",
+            visualDuration: args.visualDuraion,
+            bounce: args.bounce,
+          }}
+        />
       </div>
     );
   },
