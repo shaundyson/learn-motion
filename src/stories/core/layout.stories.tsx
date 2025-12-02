@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Description from "../components/Description";
 import * as motion from "motion/react-client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const meta: Meta = {
@@ -95,6 +95,45 @@ export const Tabs: Story = {
         <main className="flex flex-1 items-center justify-center font-bold">
           {activeTab}
         </main>
+      </div>
+    );
+  },
+};
+
+export const FlexRowWarp: Story = {
+  args: {
+    className: "flex w-70 flex-wrap items-center justify-center gap-2 p-2",
+    count: 16,
+  },
+  render: (args) => {
+    function shuffle(array: number[]) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+    const [items, setItems] = useState<number[]>([]);
+    useEffect(() => {
+      setItems(Array.from({ length: args.count }).map((_, i) => i + 1));
+    }, [args.count]);
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        setItems(shuffle([...items]));
+      }, 1000);
+      return () => clearTimeout(timeout);
+    }, [items, setItems]);
+    return (
+      <div className={cn(args.className)}>
+        {items.map((item) => (
+          <motion.div
+            key={item}
+            className={cn(
+              "size-12",
+              "flex items-center justify-center",
+              "rounded border bg-secondary font-bold",
+            )}
+            layout
+          >
+            {item}
+          </motion.div>
+        ))}
       </div>
     );
   },
