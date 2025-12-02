@@ -102,7 +102,6 @@ export const Tabs: Story = {
 
 export const FlexRowWarp: Story = {
   args: {
-    className: "flex w-70 flex-wrap items-center justify-center gap-2 p-2",
     count: 16,
   },
   render: (args) => {
@@ -120,7 +119,7 @@ export const FlexRowWarp: Story = {
       return () => clearTimeout(timeout);
     }, [items, setItems]);
     return (
-      <div className={cn(args.className)}>
+      <div className="flex w-70 flex-wrap items-center justify-center gap-2 p-2">
         {items.map((item) => (
           <motion.div
             key={item}
