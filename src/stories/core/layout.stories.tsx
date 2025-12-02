@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Description from "../components/Description";
 import * as motion from "motion/react-client";
-import { useState, type ComponentProps } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const meta: Meta = {
