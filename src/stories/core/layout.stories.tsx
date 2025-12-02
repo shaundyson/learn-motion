@@ -104,7 +104,7 @@ export const FlexRowWarp: Story = {
   args: {
     count: 16,
   },
-  render: (args) => {
+  render: (args, { parameters }) => {
     function shuffle(array: number[]) {
       return array.sort(() => Math.random() - 0.5);
     }
@@ -119,7 +119,7 @@ export const FlexRowWarp: Story = {
       return () => clearTimeout(timeout);
     }, [items, setItems]);
     return (
-      <div className="flex w-70 flex-wrap items-center justify-center gap-2 p-2">
+      <div className={parameters.className}>
         {items.map((item) => (
           <motion.div
             key={item}
@@ -135,5 +135,8 @@ export const FlexRowWarp: Story = {
         ))}
       </div>
     );
+  },
+  parameters: {
+    className: "flex w-70 flex-wrap items-center justify-center gap-2 p-2",
   },
 };
