@@ -140,3 +140,14 @@ export const FlexRowWarp: Story = {
     className: "flex w-70 flex-wrap items-center justify-center gap-2 p-2",
   },
 };
+
+export const FlexColumnWarp: Story = {
+  args: {
+    count: 16,
+  },
+  render: FlexRowWarp.render,
+  parameters: {
+    className:
+      "flex h-70 flex-col flex-wrap items-center justify-center gap-2 p-2",
+  },
+};
