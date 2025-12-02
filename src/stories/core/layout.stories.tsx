@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Description from "../components/Description";
 import * as motion from "motion/react-client";
-import { useState } from "react";
-import clsx from "clsx";
+import { useState, type ComponentProps } from "react";
+import { cn } from "@/lib/utils";
 
 const meta: Meta = {
   tags: ["autodocs"],
@@ -36,7 +36,7 @@ export const Switch: Story = {
     return (
       <div
         onClick={toggleSwitch}
-        className={clsx("w-20 h-10 flex border-2 rounded-full p-2", {
+        className={cn("w-20 h-10 flex border-2 rounded-full p-2", {
           "justify-end": isOn,
         })}
       >
@@ -49,6 +49,52 @@ export const Switch: Story = {
             bounce: args.bounce,
           }}
         />
+      </div>
+    );
+  },
+};
+
+export const Tabs: Story = {
+  args: {
+    tabs: ["TAB 1", "TAB 2", "TAB 3"],
+  },
+  render: (args) => {
+    const tabs: string[] = args.tabs || [];
+    const [activeTab, setActiveTab] = useState(tabs[0]);
+    return (
+      <div className="flex flex-col w-120 rounded h-40 border">
+        <nav>
+          <ul className="w-full flex">
+            {tabs.map((tab) => (
+              <motion.li
+                key={tab}
+                className={cn(
+                  "flex-1",
+                  "text-center",
+                  "rounded-t",
+                  "relative",
+                  "border-b-2 border-b-border",
+                  "bg-secondary text-secondary-foreground",
+                  {
+                    "bg-primary text-primary-foreground ": activeTab === tab,
+                  }
+                )}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab}
+                {activeTab === tab ? (
+                  <motion.div
+                    layoutId="underline"
+                    className="h-1 w-full bg-blue-400 absolute -bottom-1"
+                  />
+                ) : null}
+              </motion.li>
+            ))}
+          </ul>
+        </nav>
+        <main className="flex-1 flex items-center justify-center font-bold">
+          {activeTab}
+        </main>
       </div>
     );
   },
