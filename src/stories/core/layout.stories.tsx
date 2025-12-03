@@ -10,7 +10,10 @@ const meta: Meta = {
     (Story, { parameters }) => (
       <div className="flex w-screen flex-col items-center justify-center gap-8">
         {parameters.description ? (
-          <Description description={parameters.description} />
+          <Description
+            description={parameters.description}
+            notes={parameters.notes}
+          />
         ) : null}
         <div className="flex flex-1 items-center justify-center">
           <Story />
@@ -172,7 +175,10 @@ export const FlexColumnWarp: Story = {
 };
 
 export const GridLayout: Story = {
-  render: () => {
+  args: {
+    useLayoutInChildren: false,
+  },
+  render: (args) => {
     const [items, setItems] = useState(
       Array.from({ length: 15 }).map((_, i) => i + 1),
     );
@@ -197,7 +203,6 @@ export const GridLayout: Story = {
                   "col-span-3": item == 5,
                 },
               )}
-              layout
               animate={{
                 backgroundColor:
                   i == 5 || i == 7 ? "var(--accent)" : "var(--primary)",
@@ -206,17 +211,35 @@ export const GridLayout: Story = {
                     ? "var(--accent-foreground)"
                     : "var(--primary-foreground)",
               }}
+              layout
               transition={{
                 duration: 2,
               }}
             >
-              <div className="flex size-24 items-center justify-center">
-                {item + 1}
-              </div>
+              {args.useLayoutInChildren ? (
+                <motion.div
+                  layout
+                  className="flex size-24 items-center justify-center"
+                  transition={{
+                    duration: 2,
+                  }}
+                >
+                  {item + 1}
+                </motion.div>
+              ) : (
+                <div className="flex size-24 items-center justify-center">
+                  {item + 1}
+                </div>
+              )}
             </motion.div>
           );
         })}
       </div>
     );
+  },
+  parameters: {
+    description: "Try to reshuffle the grid items every 3 seconds.",
+    notes:
+      "Try toggle useLayoutInChildren to see the difference when the child elements was scaling.",
   },
 };
