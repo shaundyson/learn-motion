@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Description from "../components/Description";
 import * as motion from "motion/react-client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const meta: Meta = {
@@ -103,12 +103,23 @@ export const Tabs: Story = {
 export const FlexRowWarp: Story = {
   args: {
     count: 16,
+    useRandomSize: false,
   },
   render: (args, { parameters }) => {
     function shuffle(array: number[]) {
       return array.sort(() => Math.random() - 0.5);
     }
     const [items, setItems] = useState<number[]>([]);
+
+    const scales = useMemo(() => {
+      return Array.from({ length: args.count }).map(() => {
+        return {
+          height: (Math.random() < 0.5 ? 1 : 2) * 30,
+          width: (Math.random() < 0.5 ? 1 : 2) * 30,
+        };
+      });
+    }, [args]);
+
     useEffect(() => {
       setItems(Array.from({ length: args.count }).map((_, i) => i + 1));
     }, [args.count]);
@@ -128,6 +139,9 @@ export const FlexRowWarp: Story = {
               "flex items-center justify-center",
               "rounded border bg-secondary font-bold",
             )}
+            style={{
+              ...(args.useRandomSize ? scales[item - 1] : undefined),
+            }}
             layout
           >
             {item}
@@ -138,16 +152,18 @@ export const FlexRowWarp: Story = {
   },
   parameters: {
     className: "flex w-70 flex-wrap items-center justify-center gap-2 p-2",
+    description: "Try to toggle useRandomSize to see variable sizes.",
   },
 };
 
 export const FlexColumnWarp: Story = {
   args: {
-    count: 16,
+    ...FlexRowWarp.args,
   },
   render: FlexRowWarp.render,
   parameters: {
     className:
       "flex h-70 flex-col flex-wrap items-center justify-center gap-2 p-2",
+    description: "Try to toggle useRandomSize to see variable sizes.",
   },
 };
