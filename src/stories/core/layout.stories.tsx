@@ -100,15 +100,15 @@ export const Tabs: Story = {
   },
 };
 
+function shuffle<T>(array: T[]) {
+  return array.sort(() => Math.random() - 0.5);
+}
 export const FlexRowWarp: Story = {
   args: {
     count: 16,
     useRandomSize: false,
   },
   render: (args, { parameters }) => {
-    function shuffle(array: number[]) {
-      return array.sort(() => Math.random() - 0.5);
-    }
     const [items, setItems] = useState<number[]>([]);
 
     const scales = useMemo(() => {
@@ -165,5 +165,55 @@ export const FlexColumnWarp: Story = {
     className:
       "flex h-70 flex-col flex-wrap items-center justify-center gap-2 p-2",
     description: "Try to toggle useRandomSize to see variable sizes.",
+  },
+};
+
+export const GridLayout: Story = {
+  render: () => {
+    const [items, setItems] = useState(
+      Array.from({ length: 15 }).map((_, i) => i + 1),
+    );
+    useEffect(() => {
+      const timeout = setTimeout(() => {
+        setItems(shuffle([...items]));
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }, [items, setItems]);
+    return (
+      <div className="grid grid-cols-5 gap-2">
+        {items.map((item, i) => {
+          return (
+            <motion.div
+              key={item}
+              className={cn(
+                "flex items-center justify-center",
+                "rounded-md border font-bold",
+                {
+                  "col-span-2": item == 1 || item == 4,
+                  "row-span-3": item == 1,
+                  "col-span-3": item == 5,
+                },
+              )}
+              layout
+              animate={{
+                backgroundColor:
+                  i == 5 || i == 7 ? "var(--accent)" : "var(--primary)",
+                color:
+                  i == 5 || i == 7
+                    ? "var(--accent-foreground)"
+                    : "var(--primary-foreground)",
+              }}
+              transition={{
+                duration: 2,
+              }}
+            >
+              <div className="flex size-24 items-center justify-center">
+                {item + 1}
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    );
   },
 };
