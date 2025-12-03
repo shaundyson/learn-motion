@@ -32,7 +32,10 @@ export const Basic: Story = {
 };
 
 export const PixelConstraint: Story = {
-  render: () => (
+  args: {
+    dragElastic: 0,
+  },
+  render: (args) => (
     <div className="h-[196px] w-[296px] border">
       <div className="relative top-[50px] left-[100px]">
         <motion.div
@@ -40,8 +43,12 @@ export const PixelConstraint: Story = {
           drag
           dragMomentum={false}
           dragConstraints={{ left: -100, right: 100, top: -50, bottom: 50 }}
+          dragElastic={args.dragElastic}
         />
       </div>
     </div>
   ),
+  parameters: {
+    description: "dragConstraints . dragElastic.",
+  },
 };
