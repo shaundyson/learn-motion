@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import DefaultMeta from "./layout.stories";
-import * as motion from "motion/react-client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { GripVerticalIcon } from "lucide-react";
+import { motion, useDragControls } from "motion/react";
+import { cn } from "@/lib/utils";
 
 const meta: Meta = {
   tags: ["autodocs"],
@@ -111,5 +114,48 @@ export const SnapToOrigin: Story = {
     description: "Snap to origin + Direction Lock",
     notes:
       "In this example, the green square is draggable but will snap back to its original position when released, thanks to the `dragSnapToOrigin` property. This behavior is useful for creating interactive elements that return to a default state after user interaction.",
+  },
+};
+
+export const DragHandle: Story = {
+  args: {
+    snapToCursor: false,
+  },
+  render: (args) => {
+    const dragControls = useDragControls();
+    const [isDragging, setIsDragging] = useState(false);
+    return (
+      <motion.div
+        drag
+        dragMomentum={false}
+        dragListener={false}
+        dragControls={dragControls}
+        onDragStart={() => {
+          setIsDragging(true);
+        }}
+        onDragEnd={() => {
+          setIsDragging(false);
+        }}
+      >
+        <Button
+          className={cn("pr-2 transition-none", {
+            "cursor-grabbing": isDragging,
+          })}
+        >
+          <div className="flex items-center justify-between gap-4">
+            <span>Button</span>
+            <div
+              className={cn({ "hover:cursor-grab": !isDragging })}
+              onPointerDown={(event) => {
+                setIsDragging(true);
+                dragControls.start(event, { snapToCursor: args.snapToCursor });
+              }}
+            >
+              <GripVerticalIcon />
+            </div>
+          </div>
+        </Button>
+      </motion.div>
+    );
   },
 };
