@@ -28,7 +28,8 @@ export const Basic: Story = {
   parameters: {
     description:
       "This is a basic example of a draggable element using the drag property from the Motion library. You can click and drag the green square around the screen. The `dragMomentum` property allows the element to continue moving briefly after you release it, simulating momentum.",
-    notes: "dragMomentum: try to active and check the difference.",
+    notes:
+      "dragMomentum: try to active and check the difference. dragTransition is not used in this example.",
   },
 };
 
