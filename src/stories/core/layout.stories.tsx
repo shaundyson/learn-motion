@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import Description from "../components/Description";
-import * as motion from "motion/react-client";
+import { motion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 
