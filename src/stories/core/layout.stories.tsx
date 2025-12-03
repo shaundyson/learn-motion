@@ -8,7 +8,7 @@ const meta: Meta = {
   tags: ["autodocs"],
   decorators: [
     (Story, { parameters }) => (
-      <div className="flex w-screen flex-col items-center justify-center">
+      <div className="flex w-screen flex-col items-center justify-center gap-8">
         {parameters.description ? (
           <Description description={parameters.description} />
         ) : null}
@@ -97,6 +97,9 @@ export const Tabs: Story = {
         </main>
       </div>
     );
+  },
+  parameters: {
+    description: "use layoutId to create shared layout animation.",
   },
 };
 
