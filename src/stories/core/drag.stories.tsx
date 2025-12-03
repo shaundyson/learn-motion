@@ -74,3 +74,25 @@ export const RefConstraint: Story = {
     );
   },
 };
+
+export const AxisLock: Story = {
+  args: { axis: "x" },
+  argTypes: {
+    axis: {
+      control: { type: "select" },
+      options: ["x", "y"],
+    },
+  },
+  render: (args) => (
+    <motion.div
+      className="size-24 rounded bg-green-500"
+      drag={args.axis}
+      dragMomentum={false}
+    />
+  ),
+  parameters: {
+    description:
+      "This example demonstrates axis locking using the `drag` property set to `'x'`. The green square can only be dragged horizontally along the x-axis. Vertical movement is restricted, allowing for precise horizontal positioning.",
+    notes: "Try changing `drag` to 'y' to lock movement to the vertical axis.",
+  },
+};
