@@ -96,3 +96,20 @@ export const AxisLock: Story = {
     notes: "Try changing `drag` to 'y' to lock movement to the vertical axis.",
   },
 };
+
+export const SnapToOrigin: Story = {
+  render: () => (
+    <motion.div
+      className="size-24 rounded bg-green-500"
+      drag
+      dragMomentum={false}
+      dragSnapToOrigin
+      dragDirectionLock
+    />
+  ),
+  parameters: {
+    description: "Snap to origin + Direction Lock",
+    notes:
+      "In this example, the green square is draggable but will snap back to its original position when released, thanks to the `dragSnapToOrigin` property. This behavior is useful for creating interactive elements that return to a default state after user interaction.",
+  },
+};
