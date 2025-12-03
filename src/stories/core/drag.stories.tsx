@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import DefaultMeta from "./layout.stories";
 import * as motion from "motion/react-client";
+import { useRef } from "react";
 
 const meta: Meta = {
   tags: ["autodocs"],
@@ -50,5 +51,25 @@ export const PixelConstraint: Story = {
   ),
   parameters: {
     description: "dragConstraints . dragElastic.",
+  },
+};
+
+export const RefConstraint: Story = {
+  render: () => {
+    const constraintRef = useRef(null);
+    return (
+      <div
+        className="flex size-100 items-center justify-center border"
+        ref={constraintRef}
+      >
+        <motion.div
+          className="relative top-20 left-20 size-24 rounded bg-green-500"
+          drag
+          dragMomentum={false}
+          dragElastic={0}
+          dragConstraints={constraintRef}
+        />
+      </div>
+    );
   },
 };
