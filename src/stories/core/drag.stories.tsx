@@ -30,3 +30,18 @@ export const Basic: Story = {
     notes: "dragMomentum: try to active and check the difference.",
   },
 };
+
+export const PixelConstraint: Story = {
+  render: () => (
+    <div className="h-[196px] w-[296px] border">
+      <div className="relative top-[50px] left-[100px]">
+        <motion.div
+          className="size-24 rounded bg-green-500"
+          drag
+          dragMomentum={false}
+          dragConstraints={{ left: -100, right: 100, top: -50, bottom: 50 }}
+        />
+      </div>
+    </div>
+  ),
+};
